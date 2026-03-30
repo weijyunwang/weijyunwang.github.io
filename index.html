@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPE Lab — National Central University</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g50:#f0faf5;--g100:#d1f0e0;--g200:#a3e0c2;
+  --g500:#2eaf72;--g600:#1e8f5a;--g700:#156640;--g900:#0a3321;
+  --t600:#0e8a77;
+  --gray50:#f8f8f6;--gray100:#eeecea;--gray200:#d8d6d2;
+  --gray400:#9a9890;--gray600:#5a5852;--gray800:#2a2824;
+  --tp:var(--gray800);--ts:var(--gray600);--tm:var(--gray400);
+  --bg:var(--gray50);--card:#fff;--bd:var(--gray100);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;font-size:16px;color:var(--tp);background:var(--bg);line-height:1.7}
+p{text-align:justify;hyphens:auto}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--g700);text-decoration:none;white-space:nowrap;flex-shrink:0}
+.logo span{color:var(--t600)}
+.navlinks{display:flex;align-items:center;list-style:none;flex-wrap:nowrap;margin:0 auto}
+.navlinks a{display:block;text-decoration:none;color:var(--ts);font-size:0.8rem;padding:0.3rem 0.5rem;border-radius:6px;cursor:pointer;transition:background .15s,color .15s}
+.navlinks a:hover,.navlinks a.on{color:var(--g700);background:var(--g50)}
+.langbtn{background:none;border:1px solid var(--gray200);color:var(--ts);font-family:inherit;font-size:.82rem;padding:.3rem .8rem;border-radius:20px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.langbtn:hover{border-color:var(--g500);color:var(--g700)}
+
+.pg{display:none}.pg.on{display:block}
+
+/* HERO - photo background */
+.hero{
+  position:relative;
+  min-height:420px;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('img_hero.jpg') center center / cover no-repeat;
+  filter:brightness(.45);
+  z-index:0;
+}
+.hero-in{
+  position:relative;z-index:1;
+  max-width:820px;margin:0 auto;
+  padding:4rem 2rem;
+  width:100%;
+}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,5vw,3rem);line-height:1.15;font-weight:400;margin-bottom:1.25rem;color:#fff}
+.hero h1 em{font-style:italic;color:var(--g100)}
+.hero-desc{font-size:1rem;line-height:1.75;color:rgba(255,255,255,.88);max-width:630px;font-weight:300;text-align:left}
+
+.sec{max-width:920px;margin:0 auto;padding:3.5rem 2rem}
+.sec-title{font-family:'DM Serif Display',serif;font-size:1.7rem;font-weight:400;color:var(--g900);margin-bottom:.4rem}
+.divider{width:36px;height:3px;background:var(--g500);border-radius:2px;margin-bottom:2rem}
+
+/* 3 cards horizontal */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1.5rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1.75rem;border-top:3px solid var(--g500)}
+.card-icon{width:36px;height:36px;border-radius:8px;background:var(--g50);display:flex;align-items:center;justify-content:center;margin-bottom:.8rem;font-size:1.1rem}
+.card h3{font-size:1.05rem;font-weight:500;color:var(--g900);margin-bottom:.5rem}
+.card p{font-size:.92rem;color:var(--ts);line-height:1.65}
+
+.news-item{display:flex;gap:1.25rem;padding:1rem 0;border-bottom:1px solid var(--bd)}
+.news-date{flex-shrink:0;font-size:.78rem;color:var(--tm);width:80px;padding-top:.1rem}
+.news-tag{display:inline-block;font-size:.72rem;font-weight:500;padding:.15rem .55rem;border-radius:20px;background:var(--g50);color:var(--g700);margin-bottom:.3rem}
+.news-txt{font-size:.9rem;color:var(--tp);text-align:left}
+
+.rh{border-left:3px solid var(--g500);padding-left:1rem;margin-bottom:.75rem;margin-top:2.5rem}
+.rh:first-of-type{margin-top:0}
+.rh h3{font-size:1.1rem;font-weight:500;color:var(--g900)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;margin-bottom:1.5rem}
+.rxn-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:2.5rem}
+.rxn{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1.5rem;border-top:3px solid var(--g500)}
+.rxn-type{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--g500);margin-bottom:.4rem}
+.rxn h4{font-size:.95rem;font-weight:500;color:var(--g900);margin-bottom:.5rem}
+.rxn p{font-size:.84rem;color:var(--ts);line-height:1.65}
+.figbox{background:var(--card);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.figbox img{width:100%;display:block;object-fit:contain;background:var(--gray50);padding:.75rem}
+
+/* PI - no bullets */
+.adv-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:2rem;display:flex;gap:2rem;align-items:flex-start}
+.adv-img{width:110px;height:110px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid var(--g100)}
+.adv-info h2{font-family:'DM Serif Display',serif;font-size:1.5rem;font-weight:400;color:var(--g900);margin-bottom:.2rem}
+.adv-role{font-size:.88rem;color:var(--ts);margin-bottom:.15rem}
+.adv-line{font-size:.88rem;color:var(--ts);margin-bottom:.15rem;text-align:left}
+.adv-edu{margin-top:1rem}
+.adv-edu-item{font-size:.88rem;color:var(--ts);margin-bottom:.3rem;padding-left:.75rem;border-left:2px solid var(--g200)}
+
+.tabs{display:flex;gap:.25rem;border-bottom:1px solid var(--bd);margin-bottom:1.5rem}
+.tab{background:none;border:none;border-bottom:2px solid transparent;font-family:inherit;font-size:.9rem;color:var(--tm);padding:.5rem 1rem .6rem;cursor:pointer;margin-bottom:-1px}
+.tab.on{color:var(--g700);border-bottom-color:var(--g500);font-weight:500}
+.stu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.stu{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:1.25rem;display:flex;gap:.9rem;align-items:center}
+.stu-av{width:46px;height:46px;border-radius:50%;background:var(--g50);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:500;color:var(--g700);flex-shrink:0}
+.stu-name{font-size:.92rem;font-weight:500;color:var(--tp)}
+.stu-yr{font-size:.78rem;color:var(--tm);margin-top:.1rem}
+.stu-top{font-size:.78rem;color:var(--ts);margin-top:.25rem;line-height:1.4}
+
+.fbar{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.fbtn{background:none;border:1px solid var(--gray200);font-family:inherit;font-size:.82rem;color:var(--ts);padding:.3rem .8rem;border-radius:20px;cursor:pointer}
+.fbtn.on,.fbtn:hover{background:var(--g50);border-color:var(--g500);color:var(--g700)}
+.pyg{margin-bottom:2rem}
+.pyr{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--g700);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--g100)}
+.pub{padding:.85rem 0;border-bottom:1px solid var(--bd);font-size:.875rem;line-height:1.72}
+.pub:last-child{border-bottom:none}
+.pa{color:var(--ts)}.pt{color:var(--tp);font-weight:500}.pj{font-style:italic;color:var(--ts)}
+
+.open-box{background:var(--g50);border:1px solid var(--g200);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+.open-box h3{font-size:1rem;font-weight:500;color:var(--g900);margin-bottom:.75rem}
+.dot-row{display:flex;gap:.75rem;margin-bottom:.6rem;font-size:.88rem;color:var(--ts);align-items:flex-start}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--g500);flex-shrink:0;margin-top:.47rem}
+
+footer{background:var(--g900);color:rgba(255,255,255,.55);text-align:center;padding:2rem;font-size:.82rem}
+footer a{color:rgba(255,255,255,.7);text-decoration:none}
+footer a:hover{color:#fff}
+footer strong{color:rgba(255,255,255,.9);font-weight:500}
+
+@media(max-width:720px){
+  .navlinks a{padding:.3rem .3rem;font-size:.74rem}
+  .adv-card{flex-direction:column;align-items:center;text-align:center}
+  .cgrid,.two,.cards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#" onclick="go('home');return false">CPE <span>Lab</span></a>
+  <ul class="navlinks" id="nl">
+    <li><a onclick="go('home');return false" data-p="home" class="on" data-en="Home" data-zh="首頁">Home</a></li>
+    <li><a onclick="go('research');return false" data-p="research" data-en="Research" data-zh="研究">Research</a></li>
+    <li><a onclick="go('pi');return false" data-p="pi" data-en="Principal Investigator" data-zh="指導教授">Principal Investigator</a></li>
+    <li><a onclick="go('students');return false" data-p="students" data-en="Graduate Students" data-zh="研究生">Graduate Students</a></li>
+    <li><a onclick="go('join');return false" data-p="join" data-en="Join Us" data-zh="加入我們">Join Us</a></li>
+  </ul>
+  <button class="langbtn" onclick="toggleLang()" id="lb">中文</button>
+</nav>
+
+<!-- HOME -->
+<div id="pg-home" class="pg on">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-in">
+      <h1 data-en="Catalysis &amp; Process Systems for a <em>Sustainable</em> Future" data-zh="觸媒與程序系統工程，邁向<em>永續</em>未來">Catalysis &amp; Process Systems for a <em>Sustainable</em> Future</h1>
+      <p class="hero-desc" data-en="The CPE Lab develops high-performance electrocatalysts and thermocatalysts for green energy conversion, and translates laboratory findings into industrial-scale process designs through rigorous simulation, techno-economic analysis, and life-cycle assessment." data-zh="CPE 實驗室開發高效能電催化劑與熱催化劑，應用於綠色能源轉換，並透過嚴格製程模擬、技術經濟分析與生命週期評估，將實驗室成果轉化為工業規模製程設計。">The CPE Lab develops high-performance electrocatalysts and thermocatalysts for green energy conversion, and translates laboratory findings into industrial-scale process designs through rigorous simulation, techno-economic analysis, and life-cycle assessment.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2 class="sec-title" data-en="Research Highlights" data-zh="研究亮點">Research Highlights</h2>
+    <div class="divider"></div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚗</div>
+        <h3 data-en="Catalyst Development" data-zh="觸媒材料開發">Catalyst Development</h3>
+        <p data-en="We develop high-entropy alloy (HEA) electrocatalysts for the ammonia oxidation reaction, oxygen reduction reaction, and methanol electrooxidation, as well as MOF-supported thermocatalysts for CO2 hydrogenation to methanol, focusing on high activity, selectivity, and long-term stability." data-zh="開發高熵合金電催化劑（AOR、ORR 及甲醇電氧化）與 MOF 擔載熱催化劑（CO₂ 加氫製甲醇），聚焦高活性、高選擇性與長期穩定性。">We develop high-entropy alloy (HEA) electrocatalysts for the ammonia oxidation reaction, oxygen reduction reaction, and methanol electrooxidation, as well as MOF-supported thermocatalysts for CO₂ hydrogenation to methanol, focusing on high activity, selectivity, and long-term stability.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3 data-en="Reactor Modeling &amp; Design" data-zh="反應器模型建構與設計">Reactor Modeling &amp; Design</h3>
+        <p data-en="Design and modeling of thermocatalytic fixed-bed reactors and electrochemical flow reactors. Kinetic models are integrated with reactor design equations to optimize conversion, selectivity, and energy efficiency across scales." data-zh="設計與模型建構涵蓋熱催化固定床反應器與電化學流動反應器，將動力學模型整合至反應器設計方程式，優化各規模下的轉化率、選擇性與能源效率。">Design and modeling of thermocatalytic fixed-bed reactors and electrochemical flow reactors. Kinetic models are integrated with reactor design equations to optimize conversion, selectivity, and energy efficiency across scales.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏭</div>
+        <h3 data-en="Process Design &amp; TEA" data-zh="製程設計與技術經濟分析">Process Design &amp; TEA</h3>
+        <p data-en="Aspen Plus system-level simulations of NH3- and MeOH-based international energy supply chains, with heat integration, techno-economic analysis, and life-cycle carbon emission assessment." data-zh="以 Aspen Plus 進行氨基及甲醇基能源供應鏈系統模擬，包含熱整合、技術經濟分析與碳排放評估。">Aspen Plus system-level simulations of NH₃- and MeOH-based international energy supply chains, with heat integration, techno-economic analysis, and life-cycle carbon emission assessment.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="padding-top:0">
+    <h2 class="sec-title" data-en="Latest News" data-zh="最新消息">Latest News</h2>
+    <div class="divider"></div>
+    <div class="news-item">
+      <span class="news-date">2025.01</span>
+      <div><span class="news-tag" data-en="Publication" data-zh="論文發表">Publication</span>
+      <p class="news-txt" data-en="New paper in Sustainable Energy Technologies and Assessments: conceptual design and economic analysis of biomethanol production from palm oil mill effluent for sustainable biodiesel production." data-zh="新論文發表於 Sustainable Energy Technologies and Assessments：棕櫚油廠廢水製備生物甲醇之概念設計與經濟分析。">New paper in Sustainable Energy Technologies and Assessments: conceptual design and economic analysis of biomethanol production from palm oil mill effluent for sustainable biodiesel production.</p></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<div id="pg-research" class="pg">
+  <div class="sec">
+    <h2 class="sec-title" data-en="Research" data-zh="研究方向">Research</h2>
+    <div class="divider"></div>
+    <p style="font-size:.92rem;color:var(--ts);margin-bottom:2.5rem;line-height:1.8" data-en="Our research follows a clear step-by-step progression: from developing catalysts for target energy conversion reactions, to formulating kinetic rate equations from experimental data, to designing industrial-scale processes, and finally to evaluating economic feasibility and environmental impact." data-zh="本實驗室的研究遵循清晰的推進路線：從開發目標能源轉換反應觸媒、建立反應動力學速率方程，到設計工業規模製程，最終評估經濟可行性與環境影響。">Our research follows a clear step-by-step progression: from developing catalysts for target energy conversion reactions, to formulating kinetic rate equations from experimental data, to designing industrial-scale processes, and finally to evaluating economic feasibility and environmental impact.</p>
+
+    <div class="rh"><h3 data-en="1. Catalyst Development for Energy Conversion" data-zh="1. 能源轉換觸媒開發">1. Catalyst Development for Energy Conversion</h3></div>
+    <div class="two">
+      <p style="font-size:.9rem;color:var(--ts);line-height:1.75" data-en="We develop catalysts for three key energy conversion reactions using two principal material platforms: metal-organic framework (MOF)-supported catalysts, which offer high surface area, tunable porosity, and strong metal-support interactions; and high-entropy alloy (HEA) catalysts, which leverage multi-element synergy including high-entropy, cocktail, sluggish diffusion, and lattice distortion effects to simultaneously enhance activity, selectivity, and long-term stability. In situ spectroscopic techniques, including liquid-phase TEM (ILTEM) and synchrotron X-ray absorption spectroscopy (XAS), are employed under working conditions to elucidate deactivation mechanisms and establish structure-activity relationships." data-zh="我們針對三個關鍵能源轉換反應開發觸媒，採用兩個主要材料平台：金屬有機框架（MOF）擔載觸媒提供高比表面積、可調孔隙結構與強金屬-載體相互作用；高熵合金（HEA）觸媒則透過多元素協同效應，同時提升活性、選擇性與長期穩定性。原位光譜技術（液相 TEM 及同步輻射 XAS）在操作條件下闡明失活機制並建立結構-活性關係。">We develop catalysts for three key energy conversion reactions using two principal material platforms: metal-organic framework (MOF)-supported catalysts, which offer high surface area, tunable porosity, and strong metal-support interactions; and high-entropy alloy (HEA) catalysts, which leverage multi-element synergy including high-entropy, cocktail, sluggish diffusion, and lattice distortion effects to simultaneously enhance activity, selectivity, and long-term stability. In situ spectroscopic techniques, including liquid-phase TEM (ILTEM) and synchrotron X-ray absorption spectroscopy (XAS), are employed under working conditions to elucidate deactivation mechanisms and establish structure-activity relationships.</p>
+      <div class="figbox"><img src="img_hea.jpg" alt="HEA effects" onerror="this.style.display='none'"></div>
+    </div>
+    <div class="rxn-cards">
+      <div class="rxn">
+        <p class="rxn-type" data-en="Thermal Catalysis" data-zh="熱催化">Thermal Catalysis</p>
+        <h4 data-en="Methanol Synthesis" data-zh="甲醇合成">Methanol Synthesis</h4>
+        <p data-en="CO2 hydrogenation to methanol over MOF-supported Cu-based catalysts. Research focuses on enhancing catalyst hydrophobicity to suppress water-induced sintering and active site blockage, improving long-term stability under high-pressure operating conditions." data-zh="以 MOF 擔載銅基觸媒進行 CO₂ 加氫製甲醇。聚焦於提升觸媒疏水性，抑制水誘導燒結與活性位點堵塞，改善高壓操作條件下的長期穩定性。">CO₂ hydrogenation to methanol over MOF-supported Cu-based catalysts. Research focuses on enhancing catalyst hydrophobicity to suppress water-induced sintering and active site blockage, improving long-term stability under high-pressure operating conditions.</p>
+      </div>
+      <div class="rxn">
+        <p class="rxn-type" data-en="Electrocatalysis" data-zh="電催化">Electrocatalysis</p>
+        <h4 data-en="Oxygen Reduction Reaction" data-zh="氧還原反應">Oxygen Reduction Reaction</h4>
+        <p data-en="HEA electrocatalysts as cost-effective alternatives to Pt for the oxygen reduction reaction (ORR) in fuel cells. Multi-element alloying tunes the d-band center and optimizes oxygen intermediate adsorption strength for enhanced activity and durability." data-zh="開發高熵合金電催化劑作為燃料電池 ORR 中鉑的低成本替代材料，透過多元素合金化調控 d 帶中心，優化含氧中間體吸附強度，提升活性與耐久性。">HEA electrocatalysts as cost-effective alternatives to Pt for the oxygen reduction reaction (ORR) in fuel cells. Multi-element alloying tunes the d-band center and optimizes oxygen intermediate adsorption strength for enhanced activity and durability.</p>
+      </div>
+      <div class="rxn">
+        <p class="rxn-type" data-en="Electrocatalysis" data-zh="電催化">Electrocatalysis</p>
+        <h4 data-en="Methanol Electrooxidation" data-zh="甲醇電氧化">Methanol Electrooxidation</h4>
+        <p data-en="MOF-supported Pd-based electrocatalysts for methanol electrooxidation in alkaline electrolyte, targeting H2 recovery via electrochemical reforming. Electronic modulation through metal-MOF interactions suppresses CO poisoning and enhances catalytic performance." data-zh="MOF 擔載鈀基電催化劑用於鹼性電解質中甲醇電氧化，目標為電化學重整回收氫氣。透過金屬-MOF 相互作用進行電子調控，抑制 CO 中毒並提升催化效能。">MOF-supported Pd-based electrocatalysts for methanol electrooxidation in alkaline electrolyte, targeting H₂ recovery via electrochemical reforming. Electronic modulation through metal-MOF interactions suppresses CO poisoning and enhances catalytic performance.</p>
+      </div>
+    </div>
+
+    <div class="rh"><h3 data-en="2. Reactor Modeling &amp; Design" data-zh="2. 反應器模型建構與設計">2. Reactor Modeling &amp; Design</h3></div>
+    <div class="two" style="margin-bottom:2.5rem">
+      <p style="font-size:.9rem;color:var(--ts);line-height:1.75" data-en="We design and construct both thermocatalytic fixed-bed reactors and continuous-flow electrochemical reactors at the bench scale. Kinetic models are integrated with reactor design equations to optimize conversion, selectivity, and energy efficiency. For electrochemical reactors, membrane-free two-electrode configurations enclosed between stainless-steel endplates and Teflon flow channels allow operation at pressures up to 80 bar. Key performance metrics are evaluated systematically to provide the experimental foundation for scale-up and process design." data-zh="我們在實驗室規模設計並建構熱催化固定床反應器與連續流電化學反應器。動力學模型整合至反應器設計方程式，優化轉化率、選擇性與能源效率。電化學反應器採用無薄膜雙電極設計，可在高達 80 bar 的壓力下操作，系統性評估關鍵性能指標，為後續放大與製程設計提供實驗基礎。">We design and construct both thermocatalytic fixed-bed reactors and continuous-flow electrochemical reactors at the bench scale. Kinetic models are integrated with reactor design equations to optimize conversion, selectivity, and energy efficiency. For electrochemical reactors, membrane-free two-electrode configurations enclosed between stainless-steel endplates and Teflon flow channels allow operation at pressures up to 80 bar. Key performance metrics are evaluated systematically to provide the experimental foundation for scale-up and process design.</p>
+      <div class="figbox"><img src="img_reactor_big.jpg" alt="Reactor design" onerror="this.style.display='none'"></div>
+    </div>
+
+    <div class="rh"><h3 data-en="3. Reaction Rate Equation Formulation" data-zh="3. 反應速率方程式建構">3. Reaction Rate Equation Formulation</h3></div>
+    <p style="font-size:.9rem;color:var(--ts);line-height:1.75;margin-bottom:2.5rem" data-en="Kinetic data collected from laboratory-scale reactors are analyzed through nonlinear regression to formulate intrinsic rate expressions. For thermocatalytic reactions, Langmuir-Hinshelwood and power-law models capture surface reaction mechanisms. For electrochemical reactions, power-law rate expressions correlating reaction rates with reactant concentration and applied potential are developed. These validated kinetic models are implemented in MATLAB and integrated into Aspen Plus as user-defined reactor blocks, forming the quantitative foundation for downstream process design." data-zh="從實驗室規模反應器收集的動力學數據，透過非線性迴歸分析建立本質速率方程式。熱催化反應採用 Langmuir-Hinshelwood 與冪次律模型；電化學反應則建立反應速率與反應物濃度及施加電位關聯的冪次律速率方程式。驗證後的動力學模型整合至 Aspen Plus 作為使用者定義反應器模組，構成後續製程設計的定量基礎。">Kinetic data collected from laboratory-scale reactors are analyzed through nonlinear regression to formulate intrinsic rate expressions. For thermocatalytic reactions, Langmuir-Hinshelwood and power-law models capture surface reaction mechanisms. For electrochemical reactions, power-law rate expressions correlating reaction rates with reactant concentration and applied potential are developed. These validated kinetic models are implemented in MATLAB and integrated into Aspen Plus as user-defined reactor blocks, forming the quantitative foundation for downstream process design.</p>
+
+    <div class="rh"><h3 data-en="4. System-Level Process Design" data-zh="4. 系統級製程設計">4. System-Level Process Design</h3></div>
+    <div class="two" style="margin-bottom:2.5rem">
+      <p style="font-size:.9rem;color:var(--ts);line-height:1.75" data-en="Using Aspen Plus, we perform rigorous steady-state and dynamic simulations of full energy supply chains, encompassing carrier synthesis (methanol, ammonia), purification, cracking and reforming, heat integration, and power generation. Process intensification strategies and sensitivity analyses are applied to minimize energy consumption and identify optimal operating conditions." data-zh="使用 Aspen Plus 進行完整能源供應鏈的嚴格穩態與動態模擬，涵蓋載體合成（甲醇、氨）、純化、裂解與重整、熱整合與發電。應用製程強化策略與敏感度分析，最小化能源消耗並確定最佳操作條件。">Using Aspen Plus, we perform rigorous steady-state and dynamic simulations of full energy supply chains, encompassing carrier synthesis (methanol, ammonia), purification, cracking and reforming, heat integration, and power generation. Process intensification strategies and sensitivity analyses are applied to minimize energy consumption and identify optimal operating conditions.</p>
+      <div class="figbox"><img src="img_process_zoom.jpg" alt="Aspen Plus process diagram" onerror="this.style.display='none'"></div>
+    </div>
+
+    <div class="rh"><h3 data-en="5. Techno-Economic Analysis &amp; Life Cycle Assessment" data-zh="5. 技術經濟分析與生命週期評估">5. Techno-Economic Analysis &amp; Life Cycle Assessment</h3></div>
+    <p style="font-size:.9rem;color:var(--ts);line-height:1.75" data-en="Building on the process simulation results, we perform comprehensive techno-economic analysis and life cycle assessment to bridge the gap between laboratory discovery and commercial deployment. The techno-economic analysis quantifies capital expenditure, operating expenditure, net present value, internal rate of return, and levelized cost of electricity under multiple sensitivity scenarios, informing investment decisions for industry partners. The life cycle assessment evaluates greenhouse gas emissions and cumulative energy demand across the full supply chain from raw material production to end use, providing the environmental performance data needed to guide sustainable process development and support national energy policy." data-zh="基於製程模擬結果，我們進行全面的技術經濟分析與生命週期評估。技術經濟分析量化資本支出、操作成本、淨現值、內部報酬率及均化電力成本，並進行多情境敏感度分析。生命週期評估評估從原料生產到終端使用的完整供應鏈溫室氣體排放與累計能源需求，為永續製程發展及國家能源政策提供環境績效數據。">Building on the process simulation results, we perform comprehensive techno-economic analysis and life cycle assessment to bridge the gap between laboratory discovery and commercial deployment. The techno-economic analysis quantifies capital expenditure, operating expenditure, net present value, internal rate of return, and levelized cost of electricity under multiple sensitivity scenarios, informing investment decisions for industry partners. The life cycle assessment evaluates greenhouse gas emissions and cumulative energy demand across the full supply chain from raw material production to end use, providing the environmental performance data needed to guide sustainable process development and support national energy policy.</p>
+  </div>
+</div>
+
+<!-- PI -->
+<div id="pg-pi" class="pg">
+  <div class="sec">
+    <h2 class="sec-title" data-en="Principal Investigator" data-zh="指導教授">Principal Investigator</h2>
+    <div class="divider"></div>
+    <div class="adv-card">
+      <img src="https://www.cme.ncu.edu.tw/static/file/15/1015/img/20250818151744hveg41.jpeg" alt="Prof. Wei-Jyun Wang" class="adv-img" onerror="this.style.display='none'">
+      <div class="adv-info">
+        <h2 data-en="Prof. Wei-Jyun Wang (王瑋鈞)" data-zh="王瑋鈞 助理教授">Prof. Wei-Jyun Wang (王瑋鈞)</h2>
+        <p class="adv-role" data-en="Assistant Professor, Department of Chemical and Materials Engineering, National Central University" data-zh="助理教授，國立中央大學 化學工程與材料工程學系">Assistant Professor, Department of Chemical and Materials Engineering, National Central University</p>
+        <p class="adv-line">weijyunwang&#64;ncu.edu.tw</p>
+        <p class="adv-line" data-en="Office: Engineering Building 1, Room E209" data-zh="辦公室：工程一館 E209">Office: Engineering Building 1, Room E209</p>
+        <p class="adv-line" data-en="Laboratory: Engineering Building 1, Room E211" data-zh="實驗室：工程一館 E211">Laboratory: Engineering Building 1, Room E211</p>
+        <div class="adv-edu">
+          <div class="adv-edu-item" data-en="Ph.D., Chemical Engineering, Washington State University, USA (2020)" data-zh="化學工程博士，美國華盛頓州立大學（2020）">Ph.D., Chemical Engineering, Washington State University, USA (2020)</div>
+          <div class="adv-edu-item" data-en="Postdoctoral Researcher, National Taiwan University (2023-2024)" data-zh="博士後研究員，國立臺灣大學（2023-2024）">Postdoctoral Researcher, National Taiwan University (2023-2024)</div>
+          <div class="adv-edu-item" data-en="Research Assistant, National Taiwan University (2014-2017)" data-zh="研究助理，國立臺灣大學（2014-2017）">Research Assistant, National Taiwan University (2014-2017)</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem">
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;color:var(--g900);margin-bottom:.4rem" data-en="Publications" data-zh="發表論文">Publications</h3>
+      <div style="width:36px;height:3px;background:var(--g500);border-radius:2px;margin-bottom:2rem"></div>
+
+        <p style="font-size:.84rem;color:var(--tm);margin-bottom:1.25rem">Equal contribution denoted by †.</p>
+    <div class="fbar">
+      <button class="fbtn on" onclick="fpub(event,'all')" data-en="All" data-zh="全部">All</button>
+      <button class="fbtn" onclick="fpub(event,'process')" data-en="Process Design / TEA" data-zh="製程設計 / TEA">Process Design / TEA</button>
+      <button class="fbtn" onclick="fpub(event,'cat')" data-en="Catalysis / Electrochemistry" data-zh="催化 / 電化學">Catalysis / Electrochemistry</button>
+      <button class="fbtn" onclick="fpub(event,'ctrl')" data-en="Process Control" data-zh="程序控制">Process Control</button>
+      <button class="fbtn" onclick="fpub(event,'book')" data-en="Book Chapter" data-zh="書本章節">Book Chapter</button>
+    </div>
+    <div id="pl">
+      <div class="pyg" data-t="process"><div class="pyr">2025</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Chong Wei Ong, Denny K.S. Ng, Cheng-Liang Chen. </span><span class="pt">"Conceptual design and economic analysis of biomethanol production process from palm oil mill effluent for sustainable biodiesel production."</span><span class="pj"> Sustainable Energy Technologies and Assessments</span>, 2025, 75, 104207.</div>
+      </div>
+      <div class="pyg" data-t="process"><div class="pyr">2024</div>
+        <div class="pub"><span class="pa">Jian-Xun Lin, Wei-Jyun Wang, Bor-Yih Yu, Chong Wei Ong, Cheng-Liang Chen. </span><span class="pt">"Intensification of the CO2-capturing methanol steam reforming process: A comprehensive analysis of energy, economic and environmental impacts."</span><span class="pj"> Separation and Purification Technology</span>, 2024, 347, 127612.</div>
+      </div>
+      <div class="pyg" data-t="cat"><div class="pyr">2023</div>
+        <div class="pub"><span class="pa">Mustapha Abdelmoula, Christian Ruby, M. Mallet, Jaafar Ghanbaja, Romain Coustel, Louis Scudiero, Wei-Jyun Wang. </span><span class="pt">"Identification of a Fe(OH)2-like phase in the core-shell structure of nano-zero-valent Fe and its evolution when interacting with Pd2+(aq) ions by Mossbauer spectroscopy, XPS, and TEM."</span><span class="pj"> Journal of Physics and Chemistry of Solids</span>, 2023, 172, 111066.</div>
+      </div>
+      <div class="pyg" data-t="cat"><div class="pyr">2022</div>
+        <div class="pub"><span class="pa">Benjamin L. Kee†, Wei-Jyun Wang†, Osman Akpolat, Patrick Littlewood, James P. Seaba, Louis Scudiero, Su Ha. </span><span class="pt">"Caustic aqueous phase electrochemical reforming (CAPER) of ethanol for process intensified compressed hydrogen production."</span><span class="pj"> Applied Catalysis A: General</span>, 2022, 641, 118647.</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Louis Scudiero, Su Ha. </span><span class="pt">"Recent progress in electrochemical reduction of CO2 into formate and C2 compounds."</span><span class="pj"> Korean Journal of Chemical Engineering</span>, 2022, 39(3), 461-474.</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Frankie Roberts, Stena Peterson, Su Ha, Louis Scudiero, Romain Coustel, Martine Mallet, Mustapha Abdelmoula, Christian Ruby. </span><span class="pt">"Iron-iron oxide supported palladium catalyst for the interconversion of formate and carbon dioxide."</span><span class="pj"> Chemical Engineering Journal</span>, 2022, 427(1), 131763.</div>
+      </div>
+      <div class="pyg" data-t="cat"><div class="pyr">2021</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Sooyeon Hwang, Taejin Kim, Su Ha, Louis Scudiero. </span><span class="pt">"Study of carbon supported CuPd alloy nanoparticles with Pd-rich surface for the electrochemical formate oxidation and CO2 reduction."</span><span class="pj"> Electrochimica Acta</span>, 2021, 387, 138531.</div>
+      </div>
+      <div class="pyg" data-t="ctrl"><div class="pyr">2015</div>
+        <div class="pub"><span class="pa">Shih-Han Wang, Wei-Jyun Wang, Chiao-Ying Chang, Cheng-Liang Chen. </span><span class="pt">"Analysis of a looped steam pipeline network in a large-scale refinery."</span><span class="pj"> Industrial and Engineering Chemistry Research</span>, 2015, 54, 9222-9229.</div>
+        <div class="pub"><span class="pa">Yu-Ti Tseng, Wei-Jyun Wang, Jeffrey D. Ward, Hao-Yeh Lee. </span><span class="pt">"Design and control of a process to produce furfuryl alcohol."</span><span class="pj"> Journal of the Taiwan Institute of Chemical Engineers</span>, 2015, 51, 44-52.</div>
+      </div>
+      <div class="pyg" data-t="ctrl"><div class="pyr">2013</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Jeffrey D. Ward. </span><span class="pt">"Control of three types of dividing-wall columns."</span><span class="pj"> Industrial and Engineering Chemistry Research</span>, 2013, 52, 17976-17995.</div>
+      </div>
+      <div class="pyg" data-t="book"><div class="pyr" data-en="Book Chapter" data-zh="書本章節">Book Chapter</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Cheng-Liang Chen. </span><span class="pt">"Chapter 17 — Simulation and analysis of steam power plants with Aspen Utility Planner."</span><span class="pj"> Chemical Engineering Process Simulation</span>, Elsevier, 2017, pp. 405-434.</div>
+      </div>
+      <div class="pyg" data-t="ctrl"><div class="pyr" data-en="Conference Paper" data-zh="研討會論文">Conference Paper</div>
+        <div class="pub"><span class="pa">Wei-Jyun Wang, Jeffrey D. Ward. </span><span class="pt">"Control of three types of dividing-wall columns with highly variable volatility."</span><span class="pj"> 2014 ADCONIP Conference</span>.</div>
+      </div>
+    </div>
+  
+    </div>  </div>
+</div>
+
+<!-- STUDENTS -->
+<div id="pg-students" class="pg">
+  <div class="sec">
+    <h2 class="sec-title" data-en="Graduate Students" data-zh="研究生">Graduate Students</h2>
+    <div class="divider"></div>
+    <div class="tabs">
+      <button class="tab on" onclick="stab('all')" id="t-all" data-en="Graduate Students" data-zh="研究生">Graduate Students</button>
+      <button class="tab" onclick="stab('al')" id="t-al" data-en="Alumni" data-zh="畢業校友">Alumni</button>
+    </div>
+    <div id="s-all" class="stu-grid">
+      <div class="stu"><div class="stu-av">碩</div><div>
+        <div class="stu-name" data-en="[M.S. Student Name]" data-zh="[碩士生姓名]">[M.S. Student Name]</div>
+        <div class="stu-yr" data-en="M.S. Year X" data-zh="碩士 X 年級">M.S. Year X</div>
+        <div class="stu-top" data-en="[Research topic]" data-zh="[研究主題]">[Research topic]</div>
+      </div></div>
+    </div>
+    <div id="s-al" style="display:none">
+      <p style="font-size:.9rem;color:var(--tm);padding:1.5rem 0" data-en="Alumni information coming soon." data-zh="畢業校友資訊即將更新。">Alumni information coming soon.</p>
+    </div>
+  </div>
+</div>
+
+<!-- JOIN -->
+<div id="pg-join" class="pg">
+  <div class="sec">
+    <h2 class="sec-title" data-en="Join Us" data-zh="加入我們">Join Us</h2>
+    <div class="divider"></div>
+    <p style="font-size:.92rem;color:var(--ts);margin-bottom:1.5rem;max-width:650px" data-en="We welcome motivated students and researchers with a passion for catalysis, sustainable process engineering, and techno-economic analysis. Please contact Prof. Wang by email with your CV and a brief statement of research interests." data-zh="我們誠摯歡迎對觸媒、永續製程工程及技術經濟分析充滿熱忱的學生與研究人員。請以電子郵件附上履歷及簡短研究興趣說明與王教授聯繫。">We welcome motivated students and researchers with a passion for catalysis, sustainable process engineering, and techno-economic analysis. Please contact Prof. Wang by email with your CV and a brief statement of research interests.</p>
+    <div class="open-box">
+      <h3 data-en="Current Openings" data-zh="目前開缺職位">Current Openings</h3>
+      <div class="dot-row"><div class="dot"></div><span data-en="Ph.D. positions: open. Focus on electrocatalyst development for energy conversion or process design of international energy supply chains." data-zh="博士生職缺：開放中。研究方向為能源轉換電催化劑開發或國際能源供應鏈製程設計。">Ph.D. positions: open. Focus on electrocatalyst development for energy conversion or process design of international energy supply chains.</span></div>
+      <div class="dot-row"><div class="dot"></div><span data-en="Master's positions: accepting applications. Background in chemical engineering, chemistry, or materials science preferred." data-zh="碩士生職缺：開放申請，優先具化工、化學或材料科學背景者。">Master's positions: accepting applications. Background in chemical engineering, chemistry, or materials science preferred.</span></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p><strong>Catalysis and Process System Engineering Lab (CPE Lab)</strong></p>
+  <p style="margin-top:.3rem">Department of Chemical and Materials Engineering &nbsp;·&nbsp; <a href="https://www.ncu.edu.tw" target="_blank">National Central University</a> &nbsp;·&nbsp; Taoyuan, Taiwan</p>
+  <p style="margin-top:.4rem">&#169; <span id="yr"></span> CPE Lab &nbsp;·&nbsp; weijyunwang&#64;ncu.edu.tw</p>
+</footer>
+
+<script>
+var lang='en';
+function go(id){
+  var pages=document.querySelectorAll('.pg');
+  for(var i=0;i<pages.length;i++) pages[i].classList.remove('on');
+  document.getElementById('pg-'+id).classList.add('on');
+  var links=document.querySelectorAll('#nl a');
+  for(var i=0;i<links.length;i++) links[i].classList.toggle('on',links[i].dataset.p===id);
+  window.scrollTo(0,0);
+}
+function toggleLang(){
+  lang=lang==='en'?'zh':'en';
+  document.getElementById('lb').textContent=lang==='en'?'中文':'EN';
+  document.documentElement.lang=lang==='zh'?'zh-TW':'en';
+  var els=document.querySelectorAll('[data-en][data-zh]');
+  for(var i=0;i<els.length;i++){
+    var el=els[i];
+    var val=el.dataset[lang]||el.dataset.en;
+    if(val.indexOf('<')!==-1) el.innerHTML=val;
+    else el.textContent=val;
+  }
+}
+function stab(t){
+  var ids=['all','al'];
+  for(var i=0;i<ids.length;i++){
+    var g=document.getElementById('s-'+ids[i]);
+    var b=document.getElementById('t-'+ids[i]);
+    if(g) g.style.display=ids[i]===t?(ids[i]==='al'?'block':'grid'):'none';
+    if(b) b.classList.toggle('on',ids[i]===t);
+  }
+}
+function fpub(e,t){
+  var btns=document.querySelectorAll('.fbtn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.remove('on');
+  e.target.classList.add('on');
+  var groups=document.querySelectorAll('#pl .pyg');
+  for(var i=0;i<groups.length;i++){
+    groups[i].style.display=(t==='all'||groups[i].dataset.t===t)?'block':'none';
+  }
+}
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
