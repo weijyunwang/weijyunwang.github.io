@@ -102,7 +102,8 @@ const CONTENT = {
     },
     {
         "year": "m1",
-        "photo": "",
+        "photo": "images/students/sung-wei-che.jpg",
+        "photoPosition": "50% 92%",
         "name": {
             "zh": "宋瑋哲",
             "en": "宋瑋哲"
@@ -127,7 +128,8 @@ const CONTENT = {
     },
     {
         "year": "m1",
-        "photo": "",
+        "photo": "images/students/huang-sheng-po.jpg",
+        "photoPosition": "50% 42%",
         "name": {
             "zh": "黃聖博",
             "en": "黃聖博"
