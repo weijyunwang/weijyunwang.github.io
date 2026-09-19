@@ -173,7 +173,7 @@ footer strong{color:rgba(255,255,255,.9);font-weight:500}
     <li><a onclick="go('students');return false" data-p="students" data-en="Graduate Students" data-zh="研究生">研究生</a></li>
     <li><a onclick="go('join');return false" data-p="join" data-en="Join Us" data-zh="加入我們">加入我們</a></li>
   </ul>
-  <button class="langbtn" onclick="toggleLang()" id="lb">EN</button>
+  <button class="langbtn" onclick="toggleLang()" id="lb">中文</button>
   </div>
 </nav>
 
@@ -380,7 +380,7 @@ footer strong{color:rgba(255,255,255,.9);font-weight:500}
     <div class="open-box">
       <h3 data-en="Current Openings" data-zh="目前開缺職位">目前開缺職位</h3>
       <div class="dot-row"><div class="dot"></div><span data-en="Ph.D. positions: open. Focus on electrocatalyst development for energy conversion or process design of international energy supply chains." data-zh="博士生職缺：開放中。研究方向為能源轉換電催化劑開發或國際能源供應鏈製程設計。">博士生職缺：開放中。研究方向為能源轉換電催化劑開發或國際能源供應鏈製程設計。</span></div>
-      <div class="dot-row"><div class="dot"></div><span data-en="Master's positions: currently full. Future openings will be announced through the department office." data-zh="碩士生職缺：目前已收滿。未來缺額將透過系辦公告。">碩士生職缺：目前已收滿。未來缺額將透過系辦公告。</span></div>
+      <div class="dot-row"><div class="dot"></div><span data-en="Master's positions for Fall 2027: one position is available in the experimental group, and two positions are available in the modeling group." data-zh="碩士生職缺：116 學年度實驗組招收 1 名，模擬組招收 2 名。">碩士生職缺：116 學年度實驗組招收 1 名，模擬組招收 2 名。</span></div>
     </div>
 
   </div>
@@ -394,7 +394,7 @@ footer strong{color:rgba(255,255,255,.9);font-weight:500}
 
 <script src="content.js"></script>
 <script>
-var lang='zh';
+var lang='en';
 var pubFilter='all';
 var NEWS_BATCH_SIZE=10;
 var newsVisible=0;
@@ -522,8 +522,7 @@ function go(id){
   for(var i=0;i<links.length;i++) links[i].classList.toggle('on',links[i].dataset.p===id);
   window.scrollTo(0,0);
 }
-function toggleLang(){
-  lang=lang==='en'?'zh':'en';
+function applyLang(){
   document.getElementById('lb').textContent=lang==='en'?'中文':'EN';
   document.documentElement.lang=lang==='zh'?'zh-TW':'en';
   var els=document.querySelectorAll('[data-en][data-zh]');
@@ -534,6 +533,10 @@ function toggleLang(){
   }
   var imgs=document.querySelectorAll('[data-alt-en][data-alt-zh]');
   for(var i=0;i<imgs.length;i++) imgs[i].alt=imgs[i].dataset['alt'+(lang==='zh'?'Zh':'En')]||'';
+}
+function toggleLang(){
+  lang=lang==='en'?'zh':'en';
+  applyLang();
 }
 function stab(t){
   var ids=['m1','m2','al'];
@@ -552,7 +555,7 @@ function fpub(e,t){
 }
 
 /* ---------- init ---------- */
-renderNews(); renderStudents(); renderPubs(); stab('m2');
+renderNews(); renderStudents(); renderPubs(); stab('m2'); applyLang();
 document.getElementById('yr').textContent=new Date().getFullYear();
 </script>
 </body>
