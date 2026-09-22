@@ -18,6 +18,18 @@ const CONTENT = {
    --------------------------------------------------------------------- */
   news: [
     {
+        "date": "2026.09",
+        "style": "award",
+        "tag": {
+            "zh": "榮譽獎項",
+            "en": "Award"
+        },
+        "text": {
+            "zh": "恭賀本實驗室指導之三組大學部學生團隊參加 114 學年度大學部學生程序設計競賽，榮獲佳績：第一名—蔡正杰、曾弘騏、陳姿羽；第二名—黃焯彥、李昀庭、尚明非；第四名—曾子昇、劉孟杰。",
+            "en": "Congratulations to the three undergraduate teams supervised by our lab on their outstanding results in the Undergraduate Student Process Design Competition for the 114th academic year: First Place—蔡正杰, 曾弘騏, and 陳姿羽; Second Place—黃焯彥, 李昀庭, and 尚明非; Fourth Place—曾子昇 and 劉孟杰."
+        }
+    },
+    {
         "date": "2026.08",
         "style": "award",
         "tag": {
@@ -48,8 +60,8 @@ const CONTENT = {
             "en": "Award"
         },
         "text": {
-            "zh": "指導大學部兩組同學（廖宥媗、劉祥育、徐研；楊長旻、孫奇睿）參加 113 學年度大學部學生程序設計競賽，分別榮獲第一名與第三名。",
-            "en": "Two undergraduate teams supervised by Prof. Wang, 廖宥媗, 劉祥育 and 徐研, and 楊長旻 and 孫奇睿, won first place and third place respectively in the Undergraduate Student Process Design Competition of the 113th academic year."
+            "zh": "恭賀本實驗室指導之兩組大學部學生團隊參加 113 學年度大學部學生程序設計競賽，榮獲佳績：第一名—廖宥媗、劉祥育、徐研；第三名—楊長旻、孫奇睿。",
+            "en": "Congratulations to the two undergraduate teams supervised by our lab on their outstanding results in the Undergraduate Student Process Design Competition for the 113th academic year: First Place—廖宥媗, 劉祥育, and 徐研; Third Place—楊長旻 and 孫奇睿."
         }
     },
     {
@@ -79,8 +91,8 @@ const CONTENT = {
         "photo": "images/students/yang-tsung-han.jpg",
         "photoPosition": "50% 40%",
         "name": {
-            "zh": "楊宗漢",
-            "en": "楊宗漢"
+            "zh": "楊宗翰",
+            "en": "楊宗翰"
         },
         "topic": {
             "zh": "工業規模變壓吸附單元之設計與最適化",
